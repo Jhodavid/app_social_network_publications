@@ -1,6 +1,7 @@
 
 import 'package:app_social_network_publications/ui/my_light_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PostInfo extends StatelessWidget {
   const PostInfo({
@@ -30,6 +31,9 @@ class PostInfo extends StatelessWidget {
             child: const Text('View All Comments', style:  TextStyle(
               color: MyLightTheme.textTransparentGrey
             ),),
+            onTap: () {
+              context.go('/comments_page');
+            },
           )
         ],
       ),

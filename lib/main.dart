@@ -1,10 +1,8 @@
+import 'package:app_social_network_publications/ui/my_app_routes.dart';
+import 'package:app_social_network_publications/ui/my_light_theme.dart';
 import 'package:flutter/material.dart';
 
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:app_social_network_publications/ui/pages/comment/comment_page.dart';
-import 'package:app_social_network_publications/ui/pages/publication/publication_page.dart';
 
 
 void main() {
@@ -37,33 +35,10 @@ class App extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerDelegate: _goRoute.routerDelegate,
-      routeInformationParser: _goRoute.routeInformationParser,
-      routeInformationProvider: _goRoute.routeInformationProvider,
-      // theme: _isDarkTheme ? ThemeData.dark() : ThemeData.light()
+      routerDelegate: goRoute.routerDelegate,
+      routeInformationParser: goRoute.routeInformationParser,
+      routeInformationProvider: goRoute.routeInformationProvider,
+      theme: MyLightTheme.lightTheme
     );
   } 
-
-  final GoRouter _goRoute = GoRouter(
-    routes: <GoRoute>[
-      // GoRoute(
-      //   routes:  <GoRoute>[
-      //     GoRoute(
-      //       path: 'comments_page',
-      //       builder: ( BuildContext context, GoRouterState state ) => const CommentPage()
-      //     ),
-      //   ], path: '/',
-      //   builder: ( BuildContext context, GoRouterState state ) => const PublicationPage(),
-      // )
-      GoRoute(
-        routes:  <GoRoute>[
-          GoRoute(
-            path: 'comments_page',
-            builder: ( BuildContext context, GoRouterState state ) => const CommentPage()
-          ),
-        ], path: '/',
-        builder: ( BuildContext context, GoRouterState state ) => const CommentPage(),
-      )
-    ]
-  );
 }

@@ -1,17 +1,27 @@
 
-import 'package:app_social_network_publications/ui/my_light_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:app_social_network_publications/ui/pages/comment/widgets/comment_card.dart';
 import 'package:app_social_network_publications/ui/pages/publication/widgets/post_to_comment.dart';
 import 'package:app_social_network_publications/ui/widgets/my_app_bar.dart';
-import 'package:flutter/material.dart';
 
-class CommentPage extends StatelessWidget {
+import 'package:app_social_network_publications/domain/entities/comment_model.dart';
+import 'package:app_social_network_publications/domain/providers/comment_provider.dart';
+
+import 'package:app_social_network_publications/ui/my_light_theme.dart';
+
+
+class CommentPage extends ConsumerWidget {
   const CommentPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build( BuildContext context, WidgetRef ref ) {
 
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
+    List<Comment> comments = ref.watch(commentProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -35,36 +45,10 @@ class CommentPage extends StatelessWidget {
                   child: const Divider(),
                 );
               },
-              itemCount: 10,
+              itemCount: comments.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: MyLightTheme.itemsGrey,
-                    backgroundImage: NetworkImage('https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg'),
-                  ),
-                  title: Padding(
-                    padding: EdgeInsets.only( top: height*0.004,  bottom: height*0.004 ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('Angela', style: TextStyle(
-                          fontSize: height*0.02,
-                          fontWeight: FontWeight.bold,
-                          color: MyLightTheme.textCommentBlack,
-                        ),),
-                        Padding(
-                          padding: EdgeInsets.only( left: width*0.02, bottom: height*0.001 ),
-                          child: Text('2h', style: TextStyle(
-                          fontSize: height*0.013,
-                          color: MyLightTheme.textTransparentGrey,
-                        ),),
-                        ),
-                      ],
-                    ),
-                  ),
-                  subtitle: Text('I added a new designoption, what do you think of this?'),
-                );
+                return CommentCard( comment: comments[index] );
               },
             ),
           ),
